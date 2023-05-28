@@ -6,10 +6,13 @@ import random
 from qiskit.quantum_info import Statevector
 from qiskit import Aer, execute
 from qiskit.algorithms import Grover, AmplificationProblem
-from qiskit.providers.ibmq import least_busy
+# from qiskit.providers.ibmq import least_busy
+from qiskit import transpile
 from qiskit.visualization import *
 from qiskit.providers import Backend
 from qiskit_ibm_provider import IBMProvider
+from qiskit_ibm_provider.ibm_backend import IBMBackend
+from qiskit_ibm_provider import least_busy
 import matplotlib.pyplot as plt
 
 
@@ -41,17 +44,17 @@ def run_on_simulator(_circuit):
     return result.get_counts()
 
 
-def run_on_quantum_computer(_circuit):
+def run_on_quantum_computer(_circuit, job_tags):
     """Run Circuit on real Quantum Computer"""
     # IBMQ.load_account()
 
-    def __get_quantum_backend() -> Backend:
+    def __get_quantum_backend() -> IBMBackend:
         """Getting the least busy backend:"""
         # provider = IBMQ.get_provider(hub='ibm-q')
         provider = IBMProvider(token=TOKEN)
         __backend = least_busy(
             provider.backends(
-                filters=lambda x: x.configuration().n_qubits >= 2
+                filters=lambda x: x.configuration().n_qubits >= 4
                                   and not x.configuration().simulator
                                   and x.status().operational == True),
         )
@@ -59,7 +62,14 @@ def run_on_quantum_computer(_circuit):
         return __backend
 
     backend = __get_quantum_backend()
-    job = backend.run(_circuit)
+
+    # Optimize
+    transpiled_grover_circuit = transpile(_circuit, backend, optimization_level=0)
+    job = backend.run(
+        transpiled_grover_circuit,
+        job_tags=job_tags,
+        shots=1024,
+    )
     print(f"{ job = }")
 
 
@@ -87,12 +97,12 @@ def grover_search_random(on_simulator: bool, on_quantum: bool):
     # Run on simulator
     if on_simulator:
         counts_simulator = run_on_simulator(grover_circuit)
+        plot_histogram(counts_simulator, filename="Grover_random_simulator_counts")
 
     # Run on real q computer
     if on_quantum:
-        run_on_quantum_computer(grover_circuit)
+        run_on_quantum_computer(grover_circuit, job_tags=["grover_random"])
 
-    plot_histogram(counts_simulator, filename="Grover_random_simulator_counts")
     plt.show()
 
 

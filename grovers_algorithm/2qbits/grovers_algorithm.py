@@ -8,6 +8,7 @@ from qiskit.providers.ibmq import least_busy
 from qiskit.visualization import *
 from qiskit.providers import Backend
 from qiskit_ibm_provider import IBMProvider
+from qiskit_ibm_provider.ibm_backend import IBMBackend
 from qiskit.tools.monitor import job_monitor
 
 # TOKEN DON'T FORGET!!!!
@@ -40,7 +41,6 @@ def u_g(qc):
     qc.h(0)
     qc.x(1)
     qc.h(1)
-    qc.barrier()
 
 
 def make_circuit():
@@ -64,11 +64,10 @@ def run_on_simulator(_circuit):
     return result.get_counts()
 
 
-def run_on_quantum_computer(_circuit, waith=False):
+def run_on_quantum_computer(_circuit, job_tags, waith=False):
     """Run Circuit on real Quantum Computer"""
-    # IBMQ.load_account()
 
-    def __get_quantum_backend() -> Backend:
+    def __get_quantum_backend() -> IBMBackend:
         """Getting the least busy backend:"""
         # provider = IBMQ.get_provider(hub='ibm-q')
         provider = IBMProvider(token=TOKEN)
@@ -81,14 +80,17 @@ def run_on_quantum_computer(_circuit, waith=False):
         print("least busy backend: ", __backend)
         return __backend
 
-    backend = __get_quantum_backend()
+    backend: IBMBackend = __get_quantum_backend()
 
     # Optimize
-    # transpiled_grover_circuit = transpile(_circuit, backend, optimization_level=3)
+    transpiled_grover_circuit = transpile(_circuit, backend, optimization_level=0)
     # qobj = assemble(transpiled_grover_circuit)
-    # job = backend.run(transpiled_grover_circuit)
-
-    job = backend.run(_circuit)
+    job = backend.run(
+        transpiled_grover_circuit,
+        job_tags=job_tags,
+        shots=1024,
+    )
+    print(f"{ job = }")
 
     # Monitor the execution of the job in the queue:
     if waith:
@@ -115,7 +117,7 @@ def grover_2q():
     counts_simulator = run_on_simulator(grover_circuit)
 
     # Run on real q computer
-    # run_on_quantum_computer(grover_circuit)
+    run_on_quantum_computer(grover_circuit, job_tags=["grover_2q"])
 
     # Run on real q computer with waiting result
     # counts_qc = run_on_quantum_computer(grover_circuit, waith=True)
