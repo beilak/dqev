@@ -7,6 +7,10 @@ readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "^3.11"
+qiskit = "^0.43.0"
+pylatexenc = "^2.10"
+matplotlib = "^3.7.1"
+qiskit-ibm-provider = "^0.6.0"
 
 
 [build-system]
