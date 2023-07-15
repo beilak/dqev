@@ -18,7 +18,7 @@ circuit = QuantumCircuit(qreg_q, creg_c)
 circuit.reset(qreg_q[0])
 
 # Add Hadamard Gate (Convert to Superposition)
-# Superposition Formula is ( |0> + |1>) / sqrt(2)
+# Superposition Formula is ( |0> + |1>) / sqrt(2) # ToDo
 circuit.h(qreg_q[0])
 
 # Measure. Get answer from Quantum to classical bit

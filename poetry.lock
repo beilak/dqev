@@ -359,6 +359,40 @@ unicode = ["unicodedata2 (>=15.0.0)"]
 woff = ["brotli (>=1.0.1)", "brotlicffi (>=0.8.0)", "zopfli (>=0.1.4)"]
 
 [[package]]
+name = "ibm-cloud-sdk-core"
+version = "3.16.7"
+description = "Core library used by SDKs for IBM Cloud Services"
+category = "main"
+optional = false
+python-versions = "*"
+files = [
+    {file = "ibm-cloud-sdk-core-3.16.7.tar.gz", hash = "sha256:a985f147e8d78cc7eaaf127ada3e5da37dc46e37dea184aaf8878caced781674"},
+]
+
+[package.dependencies]
+PyJWT = ">=2.4.0,<3.0.0"
+python_dateutil = ">=2.5.3,<3.0.0"
+requests = ">=2.31.0,<3.0.0"
+urllib3 = ">=1.26.0,<2.0.0"
+
+[[package]]
+name = "ibm-platform-services"
+version = "0.38.0"
+description = "Python client library for IBM Cloud Platform Services"
+category = "main"
+optional = false
+python-versions = "*"
+files = [
+    {file = "ibm-platform-services-0.38.0.tar.gz", hash = "sha256:2a3d10331bcf6923376870c31412d5638459182fa6384a988e39f25939f17f06"},
+]
+
+[package.dependencies]
+ibm_cloud_sdk_core = ">=3.16.7,<4.0.0"
+python_dateutil = ">=2.5.3,<3.0.0"
+requests = ">=2.31.0,<3.0.0"
+urllib3 = ">=1.26.0,<2.0.0"
+
+[[package]]
 name = "idna"
 version = "3.4"
 description = "Internationalized Domain Names in Applications (IDNA)"
@@ -756,6 +790,24 @@ files = [
 ]
 
 [[package]]
+name = "pyjwt"
+version = "2.7.0"
+description = "JSON Web Token implementation in Python"
+category = "main"
+optional = false
+python-versions = ">=3.7"
+files = [
+    {file = "PyJWT-2.7.0-py3-none-any.whl", hash = "sha256:ba2b425b15ad5ef12f200dc67dd56af4e26de2331f965c5439994dad075876e1"},
+    {file = "PyJWT-2.7.0.tar.gz", hash = "sha256:bd6ca4a3c4285c1a2d4349e5a035fdf8fb94e04ccd0fcbe6ba289dae9cc3e074"},
+]
+
+[package.extras]
+crypto = ["cryptography (>=3.4.0)"]
+dev = ["coverage[toml] (==5.0.4)", "cryptography (>=3.4.0)", "pre-commit", "pytest (>=6.0.0,<7.0.0)", "sphinx (>=4.5.0,<5.0.0)", "sphinx-rtd-theme", "zope.interface"]
+docs = ["sphinx (>=4.5.0,<5.0.0)", "sphinx-rtd-theme", "zope.interface"]
+tests = ["coverage[toml] (==5.0.4)", "pytest (>=6.0.0,<7.0.0)"]
+
+[[package]]
 name = "pylatexenc"
 version = "2.10"
 description = "Simple LaTeX parser providing latex-to-unicode and unicode-to-latex conversion"
@@ -910,6 +962,29 @@ websockets = ">=10.0"
 
 [package.extras]
 visualization = ["ipython (>=5.0.0)", "ipyvue (>=1.8.5)", "ipyvuetify (>=1.1)", "ipywidgets (<8.0.0)", "matplotlib (>=2.1)", "plotly (>=4.4)", "pyperclip (>=1.7)", "seaborn (>=0.9.0)", "traitlets (!=5.0.5)"]
+
+[[package]]
+name = "qiskit-ibm-runtime"
+version = "0.11.2"
+description = "IBM Quantum client for Qiskit Runtime."
+category = "main"
+optional = false
+python-versions = ">=3.8"
+files = [
+    {file = "qiskit-ibm-runtime-0.11.2.tar.gz", hash = "sha256:a5f204abf6289784c9e01c8bfa59feac8aceb89f8e5afe0be898ec69b6801fb3"},
+    {file = "qiskit_ibm_runtime-0.11.2-py3-none-any.whl", hash = "sha256:048b9402edc6afc1e462c337995f1e8bf9efa744166172144b92c9dfa06049c6"},
+]
+
+[package.dependencies]
+ibm-platform-services = ">=0.22.6"
+numpy = ">=1.13"
+python-dateutil = ">=2.8.0"
+qiskit-ibm-provider = ">=0.6.0"
+qiskit-terra = ">=0.24.0"
+requests = ">=2.19"
+requests-ntlm = ">=1.1.0"
+urllib3 = ">=1.21.1"
+websocket-client = ">=1.5.1"
 
 [[package]]
 name = "qiskit-ibmq-provider"
@@ -1310,21 +1385,20 @@ files = [
 
 [[package]]
 name = "urllib3"
-version = "2.0.2"
+version = "1.26.16"
 description = "HTTP library with thread-safe connection pooling, file post, and more."
 category = "main"
 optional = false
-python-versions = ">=3.7"
+python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*, !=3.5.*"
 files = [
-    {file = "urllib3-2.0.2-py3-none-any.whl", hash = "sha256:d055c2f9d38dc53c808f6fdc8eab7360b6fdbbde02340ed25cfbcd817c62469e"},
-    {file = "urllib3-2.0.2.tar.gz", hash = "sha256:61717a1095d7e155cdb737ac7bb2f4324a858a1e2e6466f6d03ff630ca68d3cc"},
+    {file = "urllib3-1.26.16-py2.py3-none-any.whl", hash = "sha256:8d36afa7616d8ab714608411b4a3b13e58f463aee519024578e062e141dce20f"},
+    {file = "urllib3-1.26.16.tar.gz", hash = "sha256:8f135f6502756bde6b2a9b28989df5fbe87c9970cecaa69041edcce7f0589b14"},
 ]
 
 [package.extras]
-brotli = ["brotli (>=1.0.9)", "brotlicffi (>=0.8.0)"]
-secure = ["certifi", "cryptography (>=1.9)", "idna (>=2.0.0)", "pyopenssl (>=17.1.0)", "urllib3-secure-extra"]
-socks = ["pysocks (>=1.5.6,!=1.5.7,<2.0)"]
-zstd = ["zstandard (>=0.18.0)"]
+brotli = ["brotli (>=1.0.9)", "brotlicffi (>=0.8.0)", "brotlipy (>=0.6.0)"]
+secure = ["certifi", "cryptography (>=1.3.4)", "idna (>=2.0.0)", "ipaddress", "pyOpenSSL (>=0.14)", "urllib3-secure-extra"]
+socks = ["PySocks (>=1.5.6,!=1.5.7,<2.0)"]
 
 [[package]]
 name = "websocket-client"
@@ -1426,4 +1500,4 @@ files = [
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.11"
-content-hash = "9ab0cebe94d63263b8df6f436181685f42ea765d286470815b8e105675fdfa37"
+content-hash = "6e6927015430cd941e1c7b59b85e9501b13e1db70906432a1776f513d922532c"
